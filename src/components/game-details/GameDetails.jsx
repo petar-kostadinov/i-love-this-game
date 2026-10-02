@@ -3,17 +3,16 @@ import { useParams } from "react-router";
 import request from "../../utils/request";
 
 export default function GameDetails() {
-    const { gameId } = useParams();
-    console.log(gameId);
-    
-    const [game, setGame] = useState({});
+  const { gameId } = useParams();
+  const [game, setGame] = useState({});
 
-    useEffect(() => {
-        request(`/games?id=eq.${gameId}`)
-        .then(result => {setGame(result[0]);
-        })
-        .catch(error => alert(error))
-    }, [gameId]);
+  useEffect(() => {
+    request(`/games?id=eq.${gameId}`)
+      .then((result) => {
+        setGame(result[0]);
+      })
+      .catch((error) => alert(error));
+  }, [gameId]);
 
   return (
     <section id="game-details">
