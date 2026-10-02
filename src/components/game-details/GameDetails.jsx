@@ -1,4 +1,20 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import request from "../../utils/request";
+
 export default function GameDetails() {
+    const { gameId } = useParams();
+    console.log(gameId);
+    
+    const [game, setGame] = useState({});
+
+    useEffect(() => {
+        request(`/games?id=eq.${gameId}`)
+        .then(result => {setGame(result[0]);
+        })
+        .catch(error => alert(error))
+    }, [gameId]);
+
   return (
     <section id="game-details">
       <h1>Game Details</h1>
@@ -6,19 +22,19 @@ export default function GameDetails() {
         <div className="header-and-image">
           <img
             className="game-img"
-            src="images/elden ring.png"
-            alt="Elden Ring Cover Art"
+            src={game.imageUrl}
+            alt={game.title}
           />
           <div className="meta-info">
             <h1 className="game-name">
-              Elden Ring
+              {game.title}
             </h1>
             <p className="data-row">
               <span className="label">
                 Genre:
               </span>
               <span className="value">
-                Action RPG
+                {game.genre}
               </span>
             </p>
             <p className="data-row">
@@ -26,7 +42,7 @@ export default function GameDetails() {
                 Active Players:
               </span>
               <span className="value">
-                100000
+                {game.activePlayers}
               </span>
             </p>
             <p className="data-row">
@@ -34,24 +50,14 @@ export default function GameDetails() {
                 Release Date:
               </span>
               <span className="value">
-                2022-02-25
+                {game.releaseDate}
               </span>
             </p>
           </div>
           <div className="summary-section">
             <h2>Summary:</h2>
             <p className="text-summary">
-              Elden Ring is a fantasy action RPG
-              developed by FromSoftware and Bandai
-              Namco. Set in the Lands Between,
-              players embark on an epic quest to
-              become the Elden Lord, exploring a
-              vast open world designed by Hidetaka
-              Miyazaki, with worldbuilding
-              contributed by fantasy author George
-              R. R. Martin. The game features
-              challenging combat, deep lore, and
-              extensive character customization.
+              {game.summary}
             </p>
           </div>
         </div>
