@@ -1,5 +1,5 @@
-const url = "";
-const apiKey = "";
+const url = "https://fyslnwmnwfdcmwkgoqot.supabase.co/rest/v1/";
+const apiKey = "sb_publishable_L8-cPPOFCqjz8_vuVM7-yA_K_5cV7Ga";
 
 export default async function request(
   path = "/",
