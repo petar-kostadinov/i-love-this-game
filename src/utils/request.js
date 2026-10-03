@@ -5,11 +5,13 @@ export default async function request(
   path = "/",
   method = "GET",
   data = null,
+  opts = {}
 ) {
   const options = {
     headers: {
       apiKey: apiKey,
     },
+    ...opts
   };
 
   if (method !== "GET") {

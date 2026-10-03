@@ -10,12 +10,20 @@ export default function Home() {
     useState(true);
 
   useEffect(() => {
+    const abortController = new AbortController();
     request(
       `/games?order=created_at.desc&limit=3`,
+      "GET",
+      null,
+      { signal: abortController.signal },
     )
       .then(setLatestGames)
       .catch((err) => alert(err))
       .finally(() => setIsLoading(false));
+
+      return () => {
+        abortController.abort();
+      }
   }, []);
 
   return (
