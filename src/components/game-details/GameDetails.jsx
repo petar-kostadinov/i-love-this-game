@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import request from "../../utils/request";
 
 export default function GameDetails() {
   const { gameId } = useParams();
+  const navigate = useNavigate();
   const [game, setGame] = useState({});
 
   useEffect(() => {
@@ -14,6 +15,27 @@ export default function GameDetails() {
       .catch((error) => alert(error));
   }, [gameId]);
 
+  const deleteGameClickHandler = async (e) => {
+    e.preventDefault();
+    const confirmed = confirm(
+      `Are you sure you want to delete ${game.title} game?`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+   
+    try {
+    await request(
+        `/games?id=eq.${gameId}`,
+        "DELETE",
+      );
+       
+      navigate("/catalog");
+    } catch (err) {
+      alert(err);
+    }
+  };
   return (
     <section id="game-details">
       <h1>Game Details</h1>
@@ -65,7 +87,11 @@ export default function GameDetails() {
           <a href="#" className="button">
             Edit
           </a>
-          <a href="#" className="button">
+          <a
+            href="#"
+            className="button"
+            onClick={deleteGameClickHandler}
+          >
             Delete
           </a>
         </div>

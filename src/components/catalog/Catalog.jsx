@@ -4,11 +4,13 @@ import GameCard from "../game-card/GameCard";
 
 export default function Catalog() {
   const [games, setGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     request("/games?order=created_at.desc")
       .then(setGames)
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -19,11 +21,9 @@ export default function Catalog() {
           games.map((game) => (
             <GameCard key={game.id} {...game} />
           ))
-        ) : (
-          <h3 class="no-articles">
-            No Added Games Yet
-          </h3>
-        )}
+        ) : !isLoading ? (
+          <h3 className="no-articles">No Added Games Yet</h3>
+        ) : null}
       </div>
     </section>
   );
