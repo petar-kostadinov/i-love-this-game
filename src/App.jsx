@@ -8,6 +8,7 @@ import GameDetails from "./components/game-details/GameDetails";
 import GameCreate from "./components/game-create/GameCreate";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
+import Logout from "./components/logout/Logout";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -15,6 +16,10 @@ function App() {
   const userAuthHandler = (userData) => {
     setUser(userData);
   };
+
+  const logoutHandler = () => {
+    setUser(null);
+  }
 
   return (
     <>
@@ -46,6 +51,7 @@ function App() {
           path="/login"
           element={<Login onLogin={userAuthHandler}/>}
         />
+        <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
       </Routes>
 
       <Footer />
