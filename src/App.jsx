@@ -7,6 +7,7 @@ import Catalog from "./components/catalog/Catalog";
 import GameDetails from "./components/game-details/GameDetails";
 import GameCreate from "./components/game-create/GameCreate";
 import Register from "./components/register/Register";
+import Login from "./components/login/Login";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,7 +19,7 @@ function App() {
   return (
     <>
       <Header isAuthenticated={!!user} />
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -40,6 +41,10 @@ function App() {
               onRegister={userAuthHandler}
             />
           }
+        />
+        <Route
+          path="/login"
+          element={<Login onLogin={userAuthHandler}/>}
         />
       </Routes>
 
