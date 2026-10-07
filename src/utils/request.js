@@ -32,7 +32,7 @@ export default async function request(
     throw new Error(`HTTP error! status:${response.status}`);
   }
 
-  if (response.status === 204) {
+  if ([201, 204].includes(response.status)) {
     return null;
   }
 
