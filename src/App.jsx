@@ -5,6 +5,7 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
 import GameDetails from "./components/game-details/GameDetails";
+import GameEdit from "./components/game-edit/GameEdit";
 import GameCreate from "./components/game-create/GameCreate";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
@@ -34,6 +35,10 @@ function App() {
         <Route
           path="/games/:gameId"
           element={<GameDetails />}
+        />
+        <Route
+          path="/games/:gameId/edit"
+          element={<GameEdit />}
         />
         <Route
           path="/games/create"

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import {
+  Link,
+  useNavigate,
+  useParams,
+} from "react-router";
 import request from "../../utils/request";
 
 export default function GameDetails() {
@@ -24,13 +28,13 @@ export default function GameDetails() {
     if (!confirmed) {
       return;
     }
-   
+
     try {
-    await request(
+      await request(
         `/games?id=eq.${gameId}`,
         "DELETE",
       );
-       
+
       navigate("/catalog");
     } catch (err) {
       alert(err);
@@ -84,9 +88,12 @@ export default function GameDetails() {
         </div>
         {/* Edit/Delete buttons ( Only for creator of this game )  */}
         <div className="buttons">
-          <a href="#" className="button">
+          <Link
+            to={`/games/${gameId}/edit`}
+            className="button"
+          >
             Edit
-          </a>
+          </Link>
           <a
             href="#"
             className="button"

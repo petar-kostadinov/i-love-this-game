@@ -9,6 +9,7 @@ export default async function request(
   const options = {
     headers: {
       apiKey: import.meta.env.VITE_API_KEY,
+      Prefer: "return=representation"
     },
     ...opts
   };
