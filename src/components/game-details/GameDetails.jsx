@@ -6,13 +6,13 @@ import {
 } from "react-router";
 import request from "../../utils/request";
 import CreateComment from "../create-comment/CreateComment";
+import CommentList from "../comment-list/CommentList";
 
-export default function GameDetails({
-  user,
-}) {
+export default function GameDetails({ user }) {
   const { gameId } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     request(`/games?id=eq.${gameId}`)
@@ -105,30 +105,16 @@ export default function GameDetails({
             Delete
           </a>
         </div>
-        <div className="details-comments">
-          <h2>Comments:</h2>
-          <ul>
-            <li className="comment">
-              <p>
-                Content: A masterpiece of world
-                design, though the boss fights are
-                brutal.
-              </p>
-            </li>
-            <li className="comment">
-              <p>
-                Content: Truly feels like a
-                next-gen evolution of the Souls
-                formula!
-              </p>
-            </li>
-          </ul>
-          {/* Display paragraph: If there are no games in the database */}
-          {/* <p class="no-comment">No comments.</p> */}
-        </div>
+        <CommentList gameId={gameId} refresh={refresh} />
       </div>
       {/* Add Comment ( Only for logged-in users, which is not creators of the current game ) */}
-      {user && <CreateComment user={user} gameId={gameId} />}
+      {user && (
+        <CreateComment
+          user={user}
+          gameId={gameId}
+          onCreate={() => setRefresh(state => !state)}
+        />
+      )}
     </section>
   );
 }
