@@ -34,7 +34,7 @@ function App() {
         />
         <Route
           path="/games/:gameId"
-          element={<GameDetails />}
+          element={<GameDetails user={user} />}
         />
         <Route
           path="/games/:gameId/edit"
